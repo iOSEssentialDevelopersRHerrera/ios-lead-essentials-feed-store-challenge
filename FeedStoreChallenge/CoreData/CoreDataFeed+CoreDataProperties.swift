@@ -1,5 +1,5 @@
 //
-//  CoreDataFeedImage+CoreDataProperties.swift
+//  CoreDataFeed+CoreDataProperties.swift
 //  FeedStoreChallenge
 //
 //  Created by Ricardo Herrera Petit on 1/3/21.
@@ -11,10 +11,10 @@ import Foundation
 import CoreData
 
 
-extension CoreDataFeedImage {
+extension CoreDataFeed {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<CoreDataFeedImage> {
-        return NSFetchRequest<CoreDataFeedImage>(entityName: "CoreDataFeedImage")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<CoreDataFeed> {
+        return NSFetchRequest<CoreDataFeed>(entityName: "CoreDataFeed")
     }
 
     @NSManaged public var id: UUID?
@@ -24,6 +24,6 @@ extension CoreDataFeedImage {
 
 }
 
-extension CoreDataFeedImage : Identifiable {
+extension CoreDataFeed : Identifiable {
 
 }

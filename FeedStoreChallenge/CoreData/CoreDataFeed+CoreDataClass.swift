@@ -1,5 +1,5 @@
 //
-//  CoreDataFeedImage+CoreDataClass.swift
+//  CoreDataFeed+CoreDataClass.swift
 //  FeedStoreChallenge
 //
 //  Created by Ricardo Herrera Petit on 1/3/21.
@@ -10,7 +10,7 @@
 import Foundation
 import CoreData
 
-@objc(CoreDataFeedImage)
-public class CoreDataFeedImage: NSManagedObject {
+@objc(CoreDataFeed)
+public class CoreDataFeed: NSManagedObject {
 
 }
