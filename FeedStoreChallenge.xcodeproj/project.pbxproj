@@ -19,6 +19,7 @@
 		08CE2BB32285BCE700183A1B /* XCTestCase+FailableInsertFeedStoreSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CE2BAE2285BCE700183A1B /* XCTestCase+FailableInsertFeedStoreSpecs.swift */; };
 		08CE2BB52285BEF100183A1B /* FeedStoreChallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CE2BB42285BEF100183A1B /* FeedStoreChallengeTests.swift */; };
 		F675198925A2D4C000189831 /* CoreDataFeed.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F675198725A2D4C000189831 /* CoreDataFeed.xcdatamodeld */; };
+		F675199025A2DECC00189831 /* CoreDataFeedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F675198F25A2DECC00189831 /* CoreDataFeedStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		08CE2BAE2285BCE700183A1B /* XCTestCase+FailableInsertFeedStoreSpecs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FailableInsertFeedStoreSpecs.swift"; sourceTree = "<group>"; };
 		08CE2BB42285BEF100183A1B /* FeedStoreChallengeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedStoreChallengeTests.swift; sourceTree = "<group>"; };
 		F675198825A2D4C000189831 /* CoreDataFeed.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataFeed.xcdatamodel; sourceTree = "<group>"; };
+		F675198F25A2DECC00189831 /* CoreDataFeedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFeedStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				F675198725A2D4C000189831 /* CoreDataFeed.xcdatamodeld */,
+				F675198F25A2DECC00189831 /* CoreDataFeedStore.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 			files = (
 				08CE2BA62285BCB600183A1B /* FeedStore.swift in Sources */,
 				08CE2BA82285BCC600183A1B /* LocalFeedImage.swift in Sources */,
+				F675199025A2DECC00189831 /* CoreDataFeedStore.swift in Sources */,
 				F675198925A2D4C000189831 /* CoreDataFeed.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

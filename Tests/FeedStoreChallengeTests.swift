@@ -5,37 +5,6 @@
 import XCTest
 import FeedStoreChallenge
 
-class CoreDataFeedStore:FeedStore {
-	
-	private let storeContainer: NSPersistentContainer
-	private let managedContext: NSManagedObjectContext
-	
-	public init(storeContainer:NSPersistentContainer, managedContext: NSManagedObjectContext) {
-		self.storeContainer = storeContainer
-		self.managedContext = managedContext
-		
-		storeContainer.loadPersistentStores { (storeDescription, error) in
-			if let error = error {
-				print("Core Data error \(error)")
-			}
-		}
-		
-	}
-	
-	func deleteCachedFeed(completion: @escaping DeletionCompletion) {
-		//
-	}
-	
-	func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion) {
-		//
-	}
-	
-	func retrieve(completion: @escaping RetrievalCompletion) {
-		completion(.empty)
-	}
-	
-	
-}
 
 class FeedStoreChallengeTests: XCTestCase, FeedStoreSpecs {
 	
