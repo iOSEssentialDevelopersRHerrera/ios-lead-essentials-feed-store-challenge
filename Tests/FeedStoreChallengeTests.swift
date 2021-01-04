@@ -6,6 +6,22 @@ import XCTest
 import FeedStoreChallenge
 
 class CoreDataFeedStore:FeedStore {
+	
+	private let storeContainer: NSPersistentContainer
+	private let managedContext: NSManagedObjectContext
+	
+	public init(storeContainer:NSPersistentContainer, managedContext: NSManagedObjectContext) {
+		self.storeContainer = storeContainer
+		self.managedContext = managedContext
+		
+		storeContainer.loadPersistentStores { (storeDescription, error) in
+			if let error = error {
+				print("Core Data error \(error)")
+			}
+		}
+		
+	}
+	
 	func deleteCachedFeed(completion: @escaping DeletionCompletion) {
 		//
 	}
@@ -110,7 +126,9 @@ class FeedStoreChallengeTests: XCTestCase, FeedStoreSpecs {
 	// - MARK: Helpers
 	
 	private func makeSUT() -> FeedStore {
-		let sut = CoreDataFeedStore()
+		let storeContainer = NSPersistentContainer(name: "CoreDataFeedStore")
+		let managedContext = storeContainer.newBackgroundContext()
+		let sut = CoreDataFeedStore(storeContainer: storeContainer, managedContext: managedContext)
 		return sut
 	}
 	
