@@ -3,7 +3,9 @@
     <entity name="CoreDataFeed" representedClassName="CoreDataFeed" syncable="YES" codeGenerationType="class">
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
     </entity>
+    <entity name="CoreDataFeedImage" representedClassName="CoreDataFeedImage" syncable="YES" codeGenerationType="class"/>
     <elements>
         <element name="CoreDataFeed" positionX="-63" positionY="-18" width="128" height="44"/>
+        <element name="CoreDataFeedImage" positionX="-54" positionY="0" width="128" height="29"/>
     </elements>
 </model>
