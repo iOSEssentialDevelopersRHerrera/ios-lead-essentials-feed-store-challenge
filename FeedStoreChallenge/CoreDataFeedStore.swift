@@ -50,7 +50,7 @@ public class CoreDataFeedStore:FeedStore {
 	}
 	
 	public func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion) {
-		let mappedImages = map(feed,timestamp: timestamp)
+		_ = map(feed,timestamp: timestamp)
 		if let saveError = saveContext() {
 			completion(.some(saveError))
 		} else {

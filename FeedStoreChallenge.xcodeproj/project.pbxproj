@@ -97,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				F675198C25A2DAB400189831 /* CoreData */,
+				F675198F25A2DECC00189831 /* CoreDataFeedStore.swift */,
 				08CE2BA72285BCC600183A1B /* LocalFeedImage.swift */,
 				08CE2BA52285BCB600183A1B /* FeedStore.swift */,
 				08CE2B8F2285BBD100183A1B /* Info.plist */,
@@ -131,12 +132,19 @@
 		F675198C25A2DAB400189831 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				F675198725A2D4C000189831 /* CoreDataFeed.xcdatamodeld */,
-				F675198F25A2DECC00189831 /* CoreDataFeedStore.swift */,
-				F67519E525A3DC4C00189831 /* CoreDataFeed.swift */,
-				F67519E925A3FA7200189831 /* CoreDataFeedImage.swift */,
+				F67519ED25A4173400189831 /* Models */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		F67519ED25A4173400189831 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F67519E925A3FA7200189831 /* CoreDataFeedImage.swift */,
+				F675198725A2D4C000189831 /* CoreDataFeed.xcdatamodeld */,
+				F67519E525A3DC4C00189831 /* CoreDataFeed.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
