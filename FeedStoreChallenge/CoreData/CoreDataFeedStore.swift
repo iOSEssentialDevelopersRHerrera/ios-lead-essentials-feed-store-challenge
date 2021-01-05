@@ -54,8 +54,16 @@ public class CoreDataFeedStore:FeedStore {
 	}
 	
 	public func retrieve(completion: @escaping RetrievalCompletion) {
-		completion(.empty)
+		let fetchRequest = NSFetchRequest<CoreDataFeed>(entityName: "CoreDataFeed")
+		let coreDataFeed = try! managedContext.fetch(fetchRequest).first
+		if let dataFeed = coreDataFeed {
+			let imageFeed: [LocalFeedImage] = dataFeed.feed.compactMap { ($0 as? CoreDataFeedImage)?.local }
+			completion(.found(feed: imageFeed, timestamp: dataFeed.timestamp))
+		} else {
+			completion(.empty)
+		}
 	}
+	
 	
 	
 }
