@@ -21,6 +21,7 @@
 		F675198925A2D4C000189831 /* CoreDataFeed.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F675198725A2D4C000189831 /* CoreDataFeed.xcdatamodeld */; };
 		F675199025A2DECC00189831 /* CoreDataFeedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F675198F25A2DECC00189831 /* CoreDataFeedStore.swift */; };
 		F67519E625A3DC4C00189831 /* CoreDataFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67519E525A3DC4C00189831 /* CoreDataFeed.swift */; };
+		F67519EA25A3FA7200189831 /* CoreDataFeedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F67519E925A3FA7200189831 /* CoreDataFeedImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		F675198825A2D4C000189831 /* CoreDataFeed.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataFeed.xcdatamodel; sourceTree = "<group>"; };
 		F675198F25A2DECC00189831 /* CoreDataFeedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFeedStore.swift; sourceTree = "<group>"; };
 		F67519E525A3DC4C00189831 /* CoreDataFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFeed.swift; sourceTree = "<group>"; };
+		F67519E925A3FA7200189831 /* CoreDataFeedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFeedImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 				F675198725A2D4C000189831 /* CoreDataFeed.xcdatamodeld */,
 				F675198F25A2DECC00189831 /* CoreDataFeedStore.swift */,
 				F67519E525A3DC4C00189831 /* CoreDataFeed.swift */,
+				F67519E925A3FA7200189831 /* CoreDataFeedImage.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 				08CE2BA82285BCC600183A1B /* LocalFeedImage.swift in Sources */,
 				F67519E625A3DC4C00189831 /* CoreDataFeed.swift in Sources */,
 				F675199025A2DECC00189831 /* CoreDataFeedStore.swift in Sources */,
+				F67519EA25A3FA7200189831 /* CoreDataFeedImage.swift in Sources */,
 				F675198925A2D4C000189831 /* CoreDataFeed.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
