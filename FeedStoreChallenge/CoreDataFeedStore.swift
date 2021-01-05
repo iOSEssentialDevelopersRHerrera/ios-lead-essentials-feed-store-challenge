@@ -50,11 +50,10 @@ public class CoreDataFeedStore:FeedStore {
 	}
 	
 	public func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion) {
-		let fetchRequest = NSFetchRequest<CoreDataFeed>(entityName: Constants.CORE_DATA_FEED_MODEL_NAME)
-		let coreDataFeed = try? managedContext.fetch(fetchRequest).first
-		if coreDataFeed != nil {
-			managedContext.delete(coreDataFeed!)
+		if let coreDataFeed = getFetchedRequest() {
+			managedContext.delete(coreDataFeed)
 		}
+		
 		_ = map(feed,timestamp: timestamp)
 		if let saveError = saveContext() {
 			completion(.some(saveError))
@@ -65,9 +64,7 @@ public class CoreDataFeedStore:FeedStore {
 	}
 	
 	public func retrieve(completion: @escaping RetrievalCompletion) {
-		let fetchRequest = NSFetchRequest<CoreDataFeed>(entityName: Constants.CORE_DATA_FEED_MODEL_NAME)
-		let coreDataFeed = try! managedContext.fetch(fetchRequest).first
-		if let dataFeed = coreDataFeed {
+		if let dataFeed =  getFetchedRequest() {
 			let imageFeed: [LocalFeedImage] = dataFeed.images.compactMap { ($0 as? CoreDataFeedImage)?.local }
 			completion(.found(feed: imageFeed, timestamp: dataFeed.timestamp))
 		} else {
@@ -77,7 +74,10 @@ public class CoreDataFeedStore:FeedStore {
 	
 	// MARK: Helper Methods
 	
-	
+	private func getFetchedRequest()->CoreDataFeed? {
+		let fetchRequest = NSFetchRequest<CoreDataFeed>(entityName: Constants.CORE_DATA_FEED_MODEL_NAME)
+		return try! managedContext.fetch(fetchRequest).first
+	}
 	
 	private func saveContext() -> Error? {
 		if storeContainer.viewContext.hasChanges {
