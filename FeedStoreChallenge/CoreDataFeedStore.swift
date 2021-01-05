@@ -50,6 +50,11 @@ public class CoreDataFeedStore:FeedStore {
 	}
 	
 	public func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion) {
+		let fetchRequest = NSFetchRequest<CoreDataFeed>(entityName: Constants.CORE_DATA_FEED_MODEL_NAME)
+		let coreDataFeed = try? managedContext.fetch(fetchRequest).first
+		if coreDataFeed != nil {
+			managedContext.delete(coreDataFeed!)
+		}
 		_ = map(feed,timestamp: timestamp)
 		if let saveError = saveContext() {
 			completion(.some(saveError))
