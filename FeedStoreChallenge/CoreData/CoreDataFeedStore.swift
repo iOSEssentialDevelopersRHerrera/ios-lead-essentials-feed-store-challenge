@@ -11,21 +11,40 @@ import CoreData
 
 public class CoreDataFeedStore:FeedStore {
 	
+	enum LoadingError: Swift.Error {
+		case modelNotFound
+		case failedToLoadPersistentStores(Swift.Error)
+	}
+	
 	private let storeContainer: NSPersistentContainer
 	private let managedContext: NSManagedObjectContext
 	
-	public init(storeContainer:NSPersistentContainer, managedContext: NSManagedObjectContext) {
-		self.storeContainer = storeContainer
-		self.managedContext = managedContext
+	public init(modelName name: String, url: URL, in bundle: Bundle) throws {
 		
+		guard let model = bundle.url(forResource: name, withExtension: "momd").flatMap({ (url) in
+			NSManagedObjectModel(contentsOf: url)
+		}) else {
+			throw LoadingError.modelNotFound
+		}
+		
+		let description = NSPersistentStoreDescription(url: url)
+		
+		storeContainer = NSPersistentContainer(name: name, managedObjectModel: model)
+		storeContainer.persistentStoreDescriptions = [description]
+		
+		var loadError: Swift.Error?
 		storeContainer.loadPersistentStores { (storeDescription, error) in
 			if let error = error {
-				print("Core Data error \(error)")
+				loadError = error
 			}
 		}
 		
+		try loadError.map {
+			throw LoadingError.failedToLoadPersistentStores($0)
+		}
+		
+		managedContext = storeContainer.newBackgroundContext()
 	}
-	
 	public func deleteCachedFeed(completion: @escaping DeletionCompletion) {
 		//
 	}

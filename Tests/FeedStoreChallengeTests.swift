@@ -95,9 +95,11 @@ class FeedStoreChallengeTests: XCTestCase, FeedStoreSpecs {
 	// - MARK: Helpers
 	
 	private func makeSUT() -> FeedStore {
-		let storeContainer = NSPersistentContainer(name: "CoreDataFeedStore")
-		let managedContext = storeContainer.newBackgroundContext()
-		let sut = CoreDataFeedStore(storeContainer: storeContainer, managedContext: managedContext)
+		let modelName = "CoreDataFeed"
+		let storeBundle = Bundle(for: CoreDataFeedStore.self)
+		let storeURL = URL(fileURLWithPath: "/dev/null")
+		
+		let sut = try! CoreDataFeedStore(modelName: modelName, url: storeURL, in: storeBundle)
 		return sut
 	}
 	
