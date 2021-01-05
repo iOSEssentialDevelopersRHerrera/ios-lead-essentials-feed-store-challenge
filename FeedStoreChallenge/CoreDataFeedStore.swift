@@ -46,7 +46,7 @@ public class CoreDataFeedStore:FeedStore {
 		managedContext = storeContainer.newBackgroundContext()
 	}
 	public func deleteCachedFeed(completion: @escaping DeletionCompletion) {
-		//
+		completion(.none)
 	}
 	
 	public func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion) {
