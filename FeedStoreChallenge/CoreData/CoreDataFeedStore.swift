@@ -50,20 +50,65 @@ public class CoreDataFeedStore:FeedStore {
 	}
 	
 	public func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion) {
-		//
+		let mappedImages = map(feed,timestamp: timestamp)
+		if let saveError = saveContext() {
+			completion(.some(saveError))
+		} else {
+			completion(.none)
+		}
+		
 	}
 	
 	public func retrieve(completion: @escaping RetrievalCompletion) {
 		let fetchRequest = NSFetchRequest<CoreDataFeed>(entityName: "CoreDataFeed")
 		let coreDataFeed = try! managedContext.fetch(fetchRequest).first
 		if let dataFeed = coreDataFeed {
-			let imageFeed: [LocalFeedImage] = dataFeed.feed.compactMap { ($0 as? CoreDataFeedImage)?.local }
+			let imageFeed: [LocalFeedImage] = dataFeed.images.compactMap { ($0 as? CoreDataFeedImage)?.local }
 			completion(.found(feed: imageFeed, timestamp: dataFeed.timestamp))
 		} else {
 			completion(.empty)
 		}
 	}
 	
+	// MARK: Helper Methods
 	
+	
+	
+	private func saveContext() -> Error? {
+		if storeContainer.viewContext.hasChanges {
+			do {
+				try storeContainer.viewContext.save()
+				return nil
+			} catch {
+				return error
+			}
+		} else {
+			return nil
+		}
+	}
+	
+	private func map(_ feed:[LocalFeedImage], timestamp:Date) -> CoreDataFeed {
+		var imageSet: [CoreDataFeedImage] = []
+		
+		for image in feed {
+			
+			let cdImage = CoreDataFeedImage(context: managedContext)
+			
+			cdImage.id = image.id
+			cdImage.url = image.url
+			cdImage.image_desc = image.description
+			cdImage.location = image.location
+			
+			imageSet.append(cdImage)
+		}
+		
+		let images = NSOrderedSet(array: imageSet)
+		let cdFeed = CoreDataFeed(context: managedContext)
+		
+		cdFeed.images = images
+		cdFeed.timestamp = timestamp
+		
+		return cdFeed
+	}
 	
 }

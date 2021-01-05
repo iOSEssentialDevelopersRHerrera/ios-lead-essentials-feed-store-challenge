@@ -12,5 +12,5 @@ import CoreData
 @objc(CoreDataFeed)
 internal class CoreDataFeed: NSManagedObject {
 	@NSManaged internal var timestamp: Date
-	@NSManaged internal var feed: NSOrderedSet
+	@NSManaged internal var images: NSOrderedSet
 }
