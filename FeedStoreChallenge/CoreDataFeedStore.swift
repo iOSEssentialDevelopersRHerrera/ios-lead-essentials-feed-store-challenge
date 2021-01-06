@@ -105,19 +105,6 @@ public class CoreDataFeedStore:FeedStore {
 		return try! context.fetch(fetchRequest).first
 	}
 	
-	private func saveContext() -> Error? {
-		if storeContainer.viewContext.hasChanges {
-			do {
-				try storeContainer.viewContext.save()
-				return nil
-			} catch {
-				return error
-			}
-		} else {
-			return nil
-		}
-	}
-	
 	private func map(_ feed:[LocalFeedImage], timestamp:Date) -> CoreDataFeed {
 		var images: [CoreDataFeedImage] = []
 		
