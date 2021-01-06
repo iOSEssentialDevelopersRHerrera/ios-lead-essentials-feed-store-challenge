@@ -79,7 +79,7 @@ public class CoreDataFeedStore:FeedStore {
 				completion(.some(error))
 			}
 		}
-		if let coreDataFeed = getFetchedRequest(context: managedContext) {
+		if let coreDataFeed = try! CoreDataFeed.getFecthedRequest(context) {
 			managedContext.delete(coreDataFeed)
 		}
 		
@@ -99,11 +99,6 @@ public class CoreDataFeedStore:FeedStore {
 	}
 	
 	// MARK: Helper Methods
-	
-	private func getFetchedRequest(context:NSManagedObjectContext)->CoreDataFeed? {
-		let fetchRequest = NSFetchRequest<CoreDataFeed>(entityName: Constants.CORE_DATA_FEED_MODEL_NAME)
-		return try! context.fetch(fetchRequest).first
-	}
 	
 	private func map(_ feed:[LocalFeedImage], timestamp:Date) -> CoreDataFeed {
 		var images: [CoreDataFeedImage] = []
