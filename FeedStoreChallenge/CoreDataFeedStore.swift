@@ -119,7 +119,7 @@ public class CoreDataFeedStore:FeedStore {
 	}
 	
 	private func map(_ feed:[LocalFeedImage], timestamp:Date) -> CoreDataFeed {
-		var imageSet: [CoreDataFeedImage] = []
+		var images: [CoreDataFeedImage] = []
 		
 		for image in feed {
 			
@@ -130,13 +130,13 @@ public class CoreDataFeedStore:FeedStore {
 			cdImage.image_desc = image.description
 			cdImage.location = image.location
 			
-			imageSet.append(cdImage)
+			images.append(cdImage)
 		}
 		
-		let images = NSOrderedSet(array: imageSet)
+		let imageSet = NSOrderedSet(array: images)
 		let cdFeed = CoreDataFeed(context: managedContext)
 		
-		cdFeed.images = images
+		cdFeed.images = imageSet
 		cdFeed.timestamp = timestamp
 		
 		return cdFeed
