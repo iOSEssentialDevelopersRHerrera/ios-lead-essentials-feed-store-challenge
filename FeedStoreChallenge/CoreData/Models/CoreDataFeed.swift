@@ -14,3 +14,10 @@ internal class CoreDataFeed: NSManagedObject {
 	@NSManaged internal var timestamp: Date
 	@NSManaged internal var images: NSOrderedSet
 }
+
+extension CoreDataFeed {
+	public static func getFecthedRequest(_ context: NSManagedObjectContext) throws -> CoreDataFeed? {
+		let fetchRequest = NSFetchRequest<CoreDataFeed>(entityName: Constants.CORE_DATA_FEED_MODEL_NAME)
+		return try context.fetch(fetchRequest).first
+	}
+}

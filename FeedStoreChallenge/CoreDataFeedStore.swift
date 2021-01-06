@@ -46,40 +46,63 @@ public class CoreDataFeedStore:FeedStore {
 		managedContext = storeContainer.newBackgroundContext()
 	}
 	public func deleteCachedFeed(completion: @escaping DeletionCompletion) {
-		completion(.none)
-		if let coreDataFeed = getFetchedRequest() {
-			managedContext.delete(coreDataFeed)
+		let context = managedContext
+		context.perform {
+			do {
+				if let coreDataFeed = try CoreDataFeed.getFecthedRequest(context) {
+					context.delete(coreDataFeed)
+					try context.save()
+					completion(.none)
+				} else {
+					completion(.none)
+				}
+			} catch {
+				completion(.some(error))
+			}
 		}
+		
 	}
 	
 	public func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion) {
-		if let coreDataFeed = getFetchedRequest() {
-			managedContext.delete(coreDataFeed)
+		let context = managedContext
+		context.perform { [weak self] in
+			if let currentCache = try! CoreDataFeed.getFecthedRequest(context) {
+				context.delete(currentCache)
+			}
+			
+			_ = self!.map(feed, timestamp: timestamp)
+			
+			do {
+				try context.save()
+				completion(.none)
+			} catch {
+				completion(.some(error))
+			}
 		}
-		
-		_ = map(feed,timestamp: timestamp)
-		if let saveError = saveContext() {
-			completion(.some(saveError))
-		} else {
-			completion(.none)
+		if let coreDataFeed = getFetchedRequest(context: managedContext) {
+			managedContext.delete(coreDataFeed)
 		}
 		
 	}
 	
 	public func retrieve(completion: @escaping RetrievalCompletion) {
-		if let dataFeed =  getFetchedRequest() {
-			let imageFeed: [LocalFeedImage] = dataFeed.images.compactMap { ($0 as? CoreDataFeedImage)?.local }
-			completion(.found(feed: imageFeed, timestamp: dataFeed.timestamp))
-		} else {
-			completion(.empty)
+		let context = managedContext
+		context.perform {
+			if let dataFeed = try? CoreDataFeed.getFecthedRequest(context) {
+				let imageFeed: [LocalFeedImage] = dataFeed.images.compactMap { ($0 as? CoreDataFeedImage)?.local }
+				completion(.found(feed: imageFeed, timestamp: dataFeed.timestamp))
+			} else {
+				completion(.empty)
+			}
 		}
+		
 	}
 	
 	// MARK: Helper Methods
 	
-	private func getFetchedRequest()->CoreDataFeed? {
+	private func getFetchedRequest(context:NSManagedObjectContext)->CoreDataFeed? {
 		let fetchRequest = NSFetchRequest<CoreDataFeed>(entityName: Constants.CORE_DATA_FEED_MODEL_NAME)
-		return try! managedContext.fetch(fetchRequest).first
+		return try! context.fetch(fetchRequest).first
 	}
 	
 	private func saveContext() -> Error? {
