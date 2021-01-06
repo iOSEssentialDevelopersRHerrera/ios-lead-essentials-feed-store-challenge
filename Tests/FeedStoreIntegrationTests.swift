@@ -75,7 +75,6 @@ class FeedStoreIntegrationTests: XCTestCase {
 		let storeBundle = Bundle(for: CoreDataFeedStore.self)
 		let storeURL = testSpecificStoreURL()
 		let sut = try! CoreDataFeedStore(modelName: Constants.CORE_DATA_FEED_MODEL_NAME, url: storeURL, in: storeBundle)
-		//trackForMemoryLeak(sut)
 		return sut
 	}
 	
