@@ -89,7 +89,7 @@ public class CoreDataFeedStore:FeedStore {
 		let context = managedContext
 		context.perform {
 			if let dataFeed = try? CoreDataFeed.getFecthedRequest(context) {
-				let imageFeed: [LocalFeedImage] = dataFeed.images.compactMap { ($0 as? CoreDataFeedImage)?.local }
+				let imageFeed: [LocalFeedImage] = dataFeed.localFeed
 				completion(.found(feed: imageFeed, timestamp: dataFeed.timestamp))
 			} else {
 				completion(.empty)

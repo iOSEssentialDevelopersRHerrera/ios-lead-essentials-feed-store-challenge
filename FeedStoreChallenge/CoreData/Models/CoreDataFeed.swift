@@ -20,4 +20,10 @@ extension CoreDataFeed {
 		let fetchRequest = NSFetchRequest<CoreDataFeed>(entityName: Constants.CORE_DATA_FEED_MODEL_NAME)
 		return try context.fetch(fetchRequest).first
 	}
+	
+	public var localFeed:[LocalFeedImage] {
+		return images.compactMap { ($0 as? CoreDataFeedImage)?.local }
+	}
+	
+	
 }
