@@ -16,6 +16,10 @@ public class CoreDataFeedStore:FeedStore {
 		case failedToLoadPersistentStores(Swift.Error)
 	}
 	
+	enum CoreDataError: Swift.Error {
+		case deletionError
+	}
+	
 	private let storeContainer: NSPersistentContainer
 	private let managedContext: NSManagedObjectContext
 	
@@ -65,6 +69,14 @@ public class CoreDataFeedStore:FeedStore {
 	
 	public func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion) {
 		let context = managedContext
+		do {
+			if let coreDataFeed = try CoreDataFeed.getFecthedRequest(context) {
+				context.delete(coreDataFeed)
+			}
+		} catch {
+			completion(.some(CoreDataError.deletionError))
+		}
+		
 		context.perform { [weak self] in
 			_ = self!.map(feed, timestamp: timestamp)
 			
@@ -75,9 +87,7 @@ public class CoreDataFeedStore:FeedStore {
 				completion(.some(error))
 			}
 		}
-		if let coreDataFeed = try! CoreDataFeed.getFecthedRequest(context) {
-			managedContext.delete(coreDataFeed)
-		}
+		
 		
 	}
 	
