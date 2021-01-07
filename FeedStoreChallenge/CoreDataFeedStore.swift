@@ -88,10 +88,14 @@ public class CoreDataFeedStore:FeedStore {
 	public func retrieve(completion: @escaping RetrievalCompletion) {
 		let context = managedContext
 		context.perform {
-			if let dataFeed = try? CoreDataFeed.getFecthedRequest(context) {
-				let imageFeed: [LocalFeedImage] = dataFeed.localFeed
-				completion(.found(feed: imageFeed, timestamp: dataFeed.timestamp))
-			} else {
+			do {
+				if let dataFeed = try CoreDataFeed.getFecthedRequest(context) {
+					let imageFeed: [LocalFeedImage] = dataFeed.localFeed
+					completion(.found(feed: imageFeed, timestamp: dataFeed.timestamp))
+				} else {
+					completion(.empty)
+				}
+			} catch {
 				completion(.empty)
 			}
 		}
