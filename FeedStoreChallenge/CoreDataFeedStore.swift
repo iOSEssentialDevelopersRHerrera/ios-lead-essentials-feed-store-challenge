@@ -17,7 +17,7 @@ public class CoreDataFeedStore:FeedStore {
 	}
 	
 	enum CoreDataError: Swift.Error {
-		case deletionError
+		case insertionError
 	}
 	
 	private let storeContainer: NSPersistentContainer
@@ -69,26 +69,19 @@ public class CoreDataFeedStore:FeedStore {
 	
 	public func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion) {
 		let context = managedContext
-		do {
-			if let coreDataFeed = try CoreDataFeed.getFecthedRequest(context) {
-				context.delete(coreDataFeed)
-			}
-		} catch {
-			completion(.some(CoreDataError.deletionError))
-		}
-		
-		context.perform { [weak self] in
-			 self!.insert(feed, timestamp: timestamp)
-			
+		context.perform {
 			do {
+				if let coreDataFeed = try CoreDataFeed.getFecthedRequest(context) {
+					context.delete(coreDataFeed)
+				}
+				self.insert(feed, timestamp: timestamp)
 				try context.save()
-				completion(.none)
 			} catch {
-				completion(.some(error))
+				completion(.some(CoreDataError.insertionError))
 			}
+			
+			completion(.none)
 		}
-		
-		
 	}
 	
 	public func retrieve(completion: @escaping RetrievalCompletion) {
