@@ -78,7 +78,7 @@ public class CoreDataFeedStore:FeedStore {
 		}
 		
 		context.perform { [weak self] in
-			_ = self!.map(feed, timestamp: timestamp)
+			 self!.insert(feed, timestamp: timestamp)
 			
 			do {
 				try context.save()
@@ -110,7 +110,7 @@ public class CoreDataFeedStore:FeedStore {
 	
 	// MARK: Helper Methods
 	
-	private func map(_ feed:[LocalFeedImage], timestamp:Date) -> CoreDataFeed {
+	private func insert(_ feed:[LocalFeedImage], timestamp:Date) {
 		var images: [CoreDataFeedImage] = []
 		
 		for image in feed {
@@ -130,8 +130,6 @@ public class CoreDataFeedStore:FeedStore {
 		
 		cdFeed.images = imageSet
 		cdFeed.timestamp = timestamp
-		
-		return cdFeed
 	}
 	
 }
