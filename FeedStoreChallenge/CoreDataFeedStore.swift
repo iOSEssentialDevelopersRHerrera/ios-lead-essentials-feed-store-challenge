@@ -66,10 +66,6 @@ public class CoreDataFeedStore:FeedStore {
 	public func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion) {
 		let context = managedContext
 		context.perform { [weak self] in
-			if let currentCache = try! CoreDataFeed.getFecthedRequest(context) {
-				context.delete(currentCache)
-			}
-			
 			_ = self!.map(feed, timestamp: timestamp)
 			
 			do {
