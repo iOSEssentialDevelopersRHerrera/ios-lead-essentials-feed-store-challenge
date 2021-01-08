@@ -23,8 +23,8 @@ public class CoreDataFeedStore:FeedStore {
 	private let storeContainer: NSPersistentContainer
 	private let managedContext: NSManagedObjectContext
 	
-	public init(modelName name: String, url: URL, in bundle: Bundle) throws {
-		
+	public init(url: URL, in bundle: Bundle) throws {
+		let name = Constants.CORE_DATA_FEED_MODEL_NAME
 		guard let model = bundle.url(forResource: name, withExtension: "momd").flatMap({ (url) in
 			NSManagedObjectModel(contentsOf: url)
 		}) else {
