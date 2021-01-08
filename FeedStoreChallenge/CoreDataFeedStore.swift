@@ -16,10 +16,6 @@ public class CoreDataFeedStore: FeedStore {
 		case failedToLoadPersistentStores(Swift.Error)
 	}
 	
-	enum CoreDataError: Swift.Error {
-		case insertionError
-	}
-	
 	private let storeContainer: NSPersistentContainer
 	private let managedContext: NSManagedObjectContext
 	
@@ -78,7 +74,7 @@ public class CoreDataFeedStore: FeedStore {
 				self.insert(feed, timestamp: timestamp)
 				try context.save()
 			} catch {
-				completion(.some(CoreDataError.insertionError))
+				completion(.some(error))
 			}
 
 			completion(.none)
