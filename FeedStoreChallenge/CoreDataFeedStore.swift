@@ -49,6 +49,7 @@ public class CoreDataFeedStore:FeedStore {
 		
 		managedContext = storeContainer.newBackgroundContext()
 	}
+	
 	public func deleteCachedFeed(completion: @escaping DeletionCompletion) {
 		let context = managedContext
 		context.perform {
