@@ -86,7 +86,7 @@ public class CoreDataFeedStore: FeedStore {
 		context.perform {
 			do {
 				if let dataFeed = try CoreDataFeed.feed(context) {
-					let imageFeed: [LocalFeedImage] = dataFeed.localFeed
+					let imageFeed = dataFeed.localFeed
 					completion(.found(feed: imageFeed, timestamp: dataFeed.timestamp))
 				} else {
 					completion(.empty)
