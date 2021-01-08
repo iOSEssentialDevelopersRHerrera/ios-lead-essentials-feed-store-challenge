@@ -54,7 +54,7 @@ public class CoreDataFeedStore: FeedStore {
 		let context = managedContext
 		context.perform {
 			do {
-				if let coreDataFeed = try CoreDataFeed.getFecthedRequest(context) {
+				if let coreDataFeed = try CoreDataFeed.feed(context) {
 					context.delete(coreDataFeed)
 					try context.save()
 					completion(.none)
@@ -72,7 +72,7 @@ public class CoreDataFeedStore: FeedStore {
 		let context = managedContext
 		context.perform {
 			do {
-				if let coreDataFeed = try CoreDataFeed.getFecthedRequest(context) {
+				if let coreDataFeed = try CoreDataFeed.feed(context) {
 					context.delete(coreDataFeed)
 				}
 				self.insert(feed, timestamp: timestamp)
@@ -89,7 +89,7 @@ public class CoreDataFeedStore: FeedStore {
 		let context = managedContext
 		context.perform {
 			do {
-				if let dataFeed = try CoreDataFeed.getFecthedRequest(context) {
+				if let dataFeed = try CoreDataFeed.feed(context) {
 					let imageFeed: [LocalFeedImage] = dataFeed.localFeed
 					completion(.found(feed: imageFeed, timestamp: dataFeed.timestamp))
 				} else {

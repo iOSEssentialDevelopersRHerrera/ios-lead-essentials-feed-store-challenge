@@ -16,7 +16,7 @@ internal class CoreDataFeed: NSManagedObject {
 }
 
 extension CoreDataFeed {
-	public static func getFecthedRequest(_ context: NSManagedObjectContext) throws -> CoreDataFeed? {
+	public static func feed(_ context: NSManagedObjectContext) throws -> CoreDataFeed? {
 		let fetchRequest = NSFetchRequest<CoreDataFeed>(entityName: Constants.CORE_DATA_FEED_MODEL_NAME)
 		return try context.fetch(fetchRequest).first
 	}
