@@ -21,7 +21,7 @@ extension CoreDataFeed {
 		return try context.fetch(fetchRequest).first
 	}
 	
-	public var localFeed:[LocalFeedImage] {
+	public var localFeed: [LocalFeedImage] {
 		return images.compactMap { ($0 as? CoreDataFeedImage)?.local }
 	}
 	
