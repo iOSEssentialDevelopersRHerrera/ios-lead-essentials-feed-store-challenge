@@ -76,7 +76,7 @@ public class CoreDataFeedStore: FeedStore {
 			} catch {
 				completion(.some(error))
 			}
-
+		
 			completion(.none)
 		}
 	}
