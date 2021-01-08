@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-public class CoreDataFeedStore:FeedStore {
+public class CoreDataFeedStore: FeedStore {
 	
 	enum LoadingError: Swift.Error {
 		case modelNotFound
