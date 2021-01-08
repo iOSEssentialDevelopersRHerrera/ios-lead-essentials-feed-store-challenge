@@ -79,7 +79,7 @@ public class CoreDataFeedStore:FeedStore {
 			} catch {
 				completion(.some(CoreDataError.insertionError))
 			}
-			
+
 			completion(.none)
 		}
 	}
