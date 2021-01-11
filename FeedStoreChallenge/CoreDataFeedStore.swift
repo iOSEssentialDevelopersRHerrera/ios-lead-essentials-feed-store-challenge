@@ -63,10 +63,8 @@ public class CoreDataFeedStore: FeedStore {
 				if let coreDataFeed = try CoreDataFeed.feed(context) {
 					context.delete(coreDataFeed)
 					try context.save()
-					completion(.none)
-				} else {
-					completion(.none)
 				}
+				completion(.none)
 			} catch {
 				completion(.some(error))
 			}
