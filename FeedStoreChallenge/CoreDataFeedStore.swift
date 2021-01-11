@@ -16,20 +16,30 @@ public class CoreDataFeedStore: FeedStore {
 		case failedToLoadPersistentStores(Swift.Error)
 	}
 	
-	private let storeContainer: NSPersistentContainer
+	private var storeContainer: NSPersistentContainer
 	private let managedContext: NSManagedObjectContext
 	
 	public init(url: URL, in bundle: Bundle) throws {
-		let name = Constants.CORE_DATA_FEED_MODEL_NAME
-		guard let model = bundle.url(forResource: name, withExtension: "momd").flatMap({ (url) in
+		storeContainer =  try CoreDataFeedStore.createManagedContainer(url, in: bundle)
+		managedContext = storeContainer.newBackgroundContext()
+	}
+	
+	static func managedObjectModel(bundle:Bundle) throws -> NSManagedObjectModel {
+		guard let model = bundle.url(forResource: Constants.CORE_DATA_FEED_MODEL_NAME, withExtension: "momd").flatMap({ (url) in
 			NSManagedObjectModel(contentsOf: url)
 		}) else {
 			throw LoadingError.modelNotFound
 		}
 		
+		return model
+	}
+	
+	static func createManagedContainer(_ url:URL, in bundle:Bundle) throws -> NSPersistentContainer {
 		let description = NSPersistentStoreDescription(url: url)
 		
-		storeContainer = NSPersistentContainer(name: name, managedObjectModel: model)
+		
+		let storeContainer = NSPersistentContainer(name: Constants.CORE_DATA_FEED_MODEL_NAME, managedObjectModel: try CoreDataFeedStore.managedObjectModel(bundle: bundle))
+		
 		storeContainer.persistentStoreDescriptions = [description]
 		
 		var loadError: Swift.Error?
@@ -43,7 +53,7 @@ public class CoreDataFeedStore: FeedStore {
 			throw LoadingError.failedToLoadPersistentStores($0)
 		}
 		
-		managedContext = storeContainer.newBackgroundContext()
+		return storeContainer
 	}
 	
 	public func deleteCachedFeed(completion: @escaping DeletionCompletion) {
