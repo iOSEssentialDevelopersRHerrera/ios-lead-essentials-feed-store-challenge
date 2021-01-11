@@ -81,11 +81,10 @@ public class CoreDataFeedStore: FeedStore {
 				}
 				self.insert(feed, timestamp: timestamp)
 				try context.save()
+				completion(.none)
 			} catch {
 				completion(.some(error))
 			}
-		
-			completion(.none)
 		}
 	}
 	
